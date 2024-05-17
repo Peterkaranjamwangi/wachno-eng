@@ -28,8 +28,7 @@ const SingleProduct = ({ altText, description, images }) => {
                     <Image
                       src={imageSrc}
                       alt={`${altText} - Image ${index + 1}`}
-                      layout="fill"
-                      objectFit="contain"
+                      loading="lazy"
                       className="object-contain p-0"
                     />
                   </div>

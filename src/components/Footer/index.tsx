@@ -15,12 +15,9 @@ const Footer = () => {
         <div className="m-1 grid grid-cols-1 gap-4 md:m-4 lg:grid-cols-2 lg:gap-8">
           <div className="flex flex-col gap-2 rounded-lg">
             <div className="w-full">
-              <Link
-                href="/"
-                className="mb-8 inline-block flex-grow bg-gray-100"
-              >
+              <Link href="/" className="mb-8 inline-block bg-gray-100">
                 <Image
-                  src="/images/logo/logo.png"
+                  src={"/images/logo/logo.png"}
                   alt="logo"
                   className="w-full dark:hidden"
                   width={140}
@@ -28,9 +25,10 @@ const Footer = () => {
                 />
               </Link>
               <p className="mb-9 text-base leading-relaxed text-body-color dark:text-body-color-dark">
-                Wachno Engineering prides itself on its client-focused approach,
-                aiming to deliver high-quality products and tailored engineering
-                solutions that meet and exceed clients&#39; expectations.
+                At Wachno Engineering we pride ourself on our client-focused
+                approach. We aim to deliver high-quality products and tailored
+                engineering solutions that meet and exceed our clients&apos;
+                expectations.
               </p>
             </div>
             <div className="w-full">

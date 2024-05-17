@@ -35,7 +35,7 @@ const AboutSectionTwo = () => {
                   Client-Centric Approach
                 </h3>
                 <p className="text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed">
-                  We prioritize our clients&#39; needs, providing dedicated
+                  We prioritize our clients&apos; needs, providing dedicated
                   support and tailored solutions to ensure their satisfaction
                   and success.
                 </p>
