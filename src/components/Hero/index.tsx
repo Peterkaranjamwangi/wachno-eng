@@ -15,7 +15,7 @@ const Hero = () => {
 
   return (
     <div
-      className="mt-28 h-full w-full"
+      className="mt-24 h-full w-full"
       style={{ paddingLeft: "0", paddingRight: "0" }}
     >
       {/* Mobile and medium screens */}
@@ -62,14 +62,16 @@ const Hero = () => {
               key={index}
               className="flex h-full w-full items-center justify-center"
             >
-              <img
+              <Image
                 src={image.src}
                 alt={`Product Image ${index}`}
                 className="h-auto w-auto"
+                width={image.width}
+                height={image.height}
                 style={{
                   maxWidth: "100%",
                   maxHeight: "100%",
-                  objectFit: "contain", // Use 'contain' instead of 'cover'
+                  objectFit: "contain",
                 }}
               />
             </div>

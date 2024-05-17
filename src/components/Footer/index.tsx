@@ -1,8 +1,6 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import FloatingDiv from "../SocialMedia/Floatingdiv";
-import Contact from "../Contact";
 import { Product } from "@/types/products";
 import productData from "../Products/ProductsData";
 import { Service } from "@/types/service";
@@ -32,7 +30,7 @@ const Footer = () => {
               <p className="mb-9 text-base leading-relaxed text-body-color dark:text-body-color-dark">
                 Wachno Engineering prides itself on its client-focused approach,
                 aiming to deliver high-quality products and tailored engineering
-                solutions that meet and exceed clients' expectations.
+                solutions that meet and exceed clients&#39; expectations.
               </p>
             </div>
             <div className="w-full">
@@ -115,7 +113,7 @@ const Footer = () => {
           <div className="h-px w-full bg-gradient-to-r from-transparent via-[#D2D8E183] to-transparent dark:via-[#959CB183]"></div>
           <div className="mr-1 flex flex-col justify-between p-0 md:mr-4 md:flex-row md:p-4">
             <div className="text-sm text-gray-500">
-              © Wachno Engineering. All rights reserved.
+              © Wachno Engineering. All rights reserved.{" "}
               {new Date().getFullYear()}
             </div>
             <div className="flex flex-row gap-1 text-sm text-gray-500">
