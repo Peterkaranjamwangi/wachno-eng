@@ -35,9 +35,9 @@ const AboutSectionTwo = () => {
                   Client-Centric Approach
                 </h3>
                 <p className="text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed">
-                  We prioritize our clients' needs, providing dedicated support
-                  and tailored solutions to ensure their satisfaction and
-                  success.
+                  We prioritize our clients&#39; needs, providing dedicated
+                  support and tailored solutions to ensure their satisfaction
+                  and success.
                 </p>
               </div>
               <div className="mb-1">
@@ -59,3 +59,5 @@ const AboutSectionTwo = () => {
 };
 
 export default AboutSectionTwo;
+
+
