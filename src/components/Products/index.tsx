@@ -17,7 +17,7 @@ const Products: React.FC<ProductsProps> = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <div className="flex flex-row gap-1 py-2 align-baseline">
+        <div className="flex flex-row gap-1 py-2 align-baseline text-dark hover:text-primary dark:text-white/70 dark:hover:text-white">
           Our Products
           <ChevronDown />
         </div>

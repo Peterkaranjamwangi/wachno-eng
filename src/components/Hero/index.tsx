@@ -1,6 +1,8 @@
 "use client";
+
 import * as React from "react";
 import Image from "next/image";
+import { FcNext, FcPrevious } from "react-icons/fc";
 import hero from "/public/images/hero/hero.png";
 import hero1 from "/public/images/hero/hero1.png";
 import hero2 from "/public/images/hero/hero2.png";
@@ -12,6 +14,26 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const Hero = () => {
   const images = [hero, hero1, hero2, hero3, hero4, hero5];
+
+  const customNextButton = (onClickHandler, hasPrev, label) => (
+    <button
+      type="button"
+      onClick={onClickHandler}
+      className="carousel-next-button absolute right-4 top-1/2 z-10 -translate-y-1/2 transform rounded-full bg-white p-2 shadow-md transition-all hover:bg-gray-200"
+    >
+      <FcNext />
+    </button>
+  );
+
+  const customPrevButton = (onClickHandler, hasNext, label) => (
+    <button
+      type="button"
+      onClick={onClickHandler}
+      className="carousel-prev-button absolute left-4 top-1/2 z-10 -translate-y-1/2 transform rounded-full bg-white p-2 shadow-md transition-all hover:bg-gray-200"
+    >
+      <FcPrevious />
+    </button>
+  );
 
   return (
     <div
@@ -30,6 +52,8 @@ const Hero = () => {
           swipeable={true}
           interval={6000}
           className="h-full overflow-x-hidden overflow-y-hidden"
+          renderArrowNext={customNextButton}
+          renderArrowPrev={customPrevButton}
         >
           {images.map((image, index) => (
             <Image
@@ -56,6 +80,8 @@ const Hero = () => {
           dynamicHeight={false}
           centerMode={true}
           centerSlidePercentage={100}
+          renderArrowNext={customNextButton}
+          renderArrowPrev={customPrevButton}
         >
           {images.map((image, index) => (
             <div

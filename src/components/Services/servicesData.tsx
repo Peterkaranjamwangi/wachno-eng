@@ -14,6 +14,7 @@ const servicesData: Service[] = [
       "/images/services/architecture4.jpeg",
       "/images/services/architecture5.jpeg",
       "/images/services/architecture6.jpeg",
+      "/images/services/architecture7.jpeg",
     ],
   },
   {
@@ -22,10 +23,20 @@ const servicesData: Service[] = [
     description:
       "At Wachno Engineering, we specialize in high-quality stainless steel fabrication services for various applications. From kitchen worktops and sinks to burners, racks, and wall shelves, we deliver precision-engineered stainless steel products that combine durability, functionality, and aesthetic appeal. Our skilled craftsmen and state-of-the-art equipment ensure that every piece is crafted to perfection, meeting the highest standards of quality and exceeding our clients' expectations. Whether you're outfitting a commercial kitchen, restaurant, or food service establishment, our stainless steel fabrication solutions are designed to meet your specific needs and requirements.",
     images: [
-      "/images/services/mildsteel.png",
-      "/images/services/mildsteel1.png",
-      "/images/services/mildsteel3.png",
-      "/images/services/mildsteel4.png",
+      "/images/services/stainlesssteel.png",
+      "/images/services/stainlesssteel1.png",
+      "/images/services/stainlesssteel3.png",
+      "/images/services/stainlesssteel4.png",
+      "/images/services/stainlesssteel4.jpeg",
+      "/images/services/stainlesssteel5.jpeg",
+      "/images/services/stainlesssteel6.png",
+      "/images/services/stainlesssteel7.jpeg",
+      "/images/services/stainlesssteel8.jpeg",
+      "/images/services/stainlesssteel9.jpeg",
+      "/images/services/stainlesssteel10.jpeg",
+      "/images/services/stainlesssteel11.jpeg",
+      "/images/services/stainlesssteel12.jpeg",
+      "/images/services/stainlesssteel13.jpeg",
     ],
   },
   {
@@ -84,6 +95,7 @@ const servicesData: Service[] = [
       "/images/services/maintainance.png",
       "/images/services/maintainance1.png",
       "/images/services/maintainance2.png",
+      "/images/services/maintainance3.png",
     ],
   },
   {
