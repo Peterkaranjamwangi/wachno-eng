@@ -14,7 +14,7 @@ const contactList: ContactData[] = [
   {
     icon: <FaWhatsapp size={24} />,
     name: "Whatsapp",
-    link: "https://wa.me/254705383332",
+    link: "http://wa.chatfuel.com/Wachno",
   },
   {
     icon: <FaTiktok size={24} />,
