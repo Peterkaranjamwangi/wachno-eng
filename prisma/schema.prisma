@@ -1,0 +1,129 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String   @db.Text
+  paragraph   String   @db.Text
+  image       String
+  images      String[]
+  category    String?
+  price       Float?
+  featured    Boolean  @default(false)
+  inStock     Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  quotationItems QuotationItem[]
+
+  @@index([slug])
+  @@index([category])
+  @@map("products")
+}
+
+model Service {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String   @db.Text
+  paragraph   String   @db.Text
+  image       String
+  images      String[]
+  category    String?
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  quotationItems QuotationItem[]
+
+  @@index([slug])
+  @@index([category])
+  @@map("services")
+}
+
+model Quotation {
+  id              String          @id @default(cuid())
+  name            String
+  email           String
+  phone           String?
+  company         String?
+  message         String?         @db.Text
+  status          QuotationStatus @default(PENDING)
+  totalAmount     Float?
+  notes           String?         @db.Text
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  respondedAt     DateTime?
+
+  items QuotationItem[]
+
+  @@index([email])
+  @@index([status])
+  @@index([createdAt])
+  @@map("quotations")
+}
+
+model QuotationItem {
+  id          String  @id @default(cuid())
+  quotationId String
+  productId   String?
+  serviceId   String?
+  quantity    Int     @default(1)
+  description String? @db.Text
+  price       Float?
+
+  quotation Quotation @relation(fields: [quotationId], references: [id], onDelete: Cascade)
+  product   Product?  @relation(fields: [productId], references: [id], onDelete: SetNull)
+  service   Service?  @relation(fields: [serviceId], references: [id], onDelete: SetNull)
+
+  @@index([quotationId])
+  @@index([productId])
+  @@index([serviceId])
+  @@map("quotation_items")
+}
+
+model Message {
+  id        String        @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String?
+  message   String        @db.Text
+  status    MessageStatus @default(UNREAD)
+  notes     String?       @db.Text
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  readAt    DateTime?
+
+  @@index([email])
+  @@index([status])
+  @@index([createdAt])
+  @@map("messages")
+}
+
+enum QuotationStatus {
+  PENDING
+  REVIEWING
+  QUOTED
+  ACCEPTED
+  REJECTED
+  COMPLETED
+}
+
+enum MessageStatus {
+  UNREAD
+  READ
+  REPLIED
+  ARCHIVED
+}

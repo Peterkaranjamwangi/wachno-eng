@@ -1,5 +1,6 @@
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import Contact from "@/components/Contact";
+import ContactForm from "@/components/Contact/ContactForm";
 
 import { Metadata } from "next";
 
@@ -18,6 +19,7 @@ const ContactPage = () => {
       />
 
       <Contact />
+      <ContactForm />
     </>
   );
 };
