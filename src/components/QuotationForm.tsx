@@ -2,6 +2,11 @@
 
 import { useState } from 'react'
 import { useQuotationStore } from '@/store/useQuotationStore'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { LoadingSpinner } from '@/components/ui/skeleton'
+import toast from 'react-hot-toast'
 
 interface QuotationFormData {
   name: string
@@ -27,18 +32,19 @@ export default function QuotationForm() {
     message: '',
     items: [{ quantity: 1, description: '' }],
   })
-  const [success, setSuccess] = useState(false)
-  const [error, setError] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setError('')
-    setSuccess(false)
+
+    const toastId = toast.loading('Submitting your quotation request...')
 
     try {
       const result = await createQuotation(formData)
       if (result) {
-        setSuccess(true)
+        toast.success('Quotation request submitted successfully! We\'ll get back to you soon.', {
+          id: toastId,
+          duration: 5000,
+        })
         setFormData({
           name: '',
           email: '',
@@ -48,10 +54,14 @@ export default function QuotationForm() {
           items: [{ quantity: 1, description: '' }],
         })
       } else {
-        setError('Failed to submit quotation request. Please try again.')
+        toast.error('Failed to submit quotation request. Please try again.', {
+          id: toastId,
+        })
       }
     } catch (err) {
-      setError('An error occurred. Please try again.')
+      toast.error('An error occurred. Please try again.', {
+        id: toastId,
+      })
     }
   }
 
@@ -78,79 +88,62 @@ export default function QuotationForm() {
   return (
     <div className="mx-auto max-w-2xl">
       <form onSubmit={handleSubmit} className="space-y-6">
-        {success && (
-          <div className="rounded-lg bg-green-50 p-4 text-green-800 dark:bg-green-900/20 dark:text-green-200">
-            Thank you! Your quotation request has been submitted successfully. We'll get back to you soon.
-          </div>
-        )}
-
-        {error && (
-          <div className="rounded-lg bg-red-50 p-4 text-red-800 dark:bg-red-900/20 dark:text-red-200">
-            {error}
-          </div>
-        )}
-
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <div>
-            <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-              Name *
-            </label>
-            <input
+          <div className="space-y-2">
+            <Label htmlFor="name">Name *</Label>
+            <Input
+              id="name"
               type="text"
               required
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full rounded-lg border bg-white px-4 py-2 dark:border-gray-700 dark:bg-gray-900"
+              placeholder="Your full name"
             />
           </div>
 
-          <div>
-            <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-              Email *
-            </label>
-            <input
+          <div className="space-y-2">
+            <Label htmlFor="email">Email *</Label>
+            <Input
+              id="email"
               type="email"
               required
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full rounded-lg border bg-white px-4 py-2 dark:border-gray-700 dark:bg-gray-900"
+              placeholder="your@email.com"
             />
           </div>
 
-          <div>
-            <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-              Phone
-            </label>
-            <input
+          <div className="space-y-2">
+            <Label htmlFor="phone">Phone</Label>
+            <Input
+              id="phone"
               type="tel"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="w-full rounded-lg border bg-white px-4 py-2 dark:border-gray-700 dark:bg-gray-900"
+              placeholder="+254 700 000000"
             />
           </div>
 
-          <div>
-            <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-              Company
-            </label>
-            <input
+          <div className="space-y-2">
+            <Label htmlFor="company">Company</Label>
+            <Input
+              id="company"
               type="text"
               value={formData.company}
               onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-              className="w-full rounded-lg border bg-white px-4 py-2 dark:border-gray-700 dark:bg-gray-900"
+              placeholder="Company name (optional)"
             />
           </div>
         </div>
 
-        <div>
-          <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-            Additional Message
-          </label>
-          <textarea
+        <div className="space-y-2">
+          <Label htmlFor="message">Additional Message</Label>
+          <Textarea
+            id="message"
             rows={4}
             value={formData.message}
             onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-            className="w-full rounded-lg border bg-white px-4 py-2 dark:border-gray-700 dark:bg-gray-900"
+            placeholder="Any additional information about your request..."
           />
         </div>
 
@@ -215,8 +208,9 @@ export default function QuotationForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-lg bg-primary px-4 py-3 font-medium text-white hover:bg-primary/90 disabled:opacity-50"
+          className="w-full rounded-lg bg-primary px-4 py-3 font-medium text-white hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
+          {loading && <LoadingSpinner size="sm" />}
           {loading ? 'Submitting...' : 'Request Quotation'}
         </button>
       </form>

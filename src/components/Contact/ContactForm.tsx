@@ -2,6 +2,11 @@
 
 import { useState } from 'react'
 import { useMessageStore } from '@/store/useMessageStore'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { LoadingSpinner } from '@/components/ui/skeleton'
+import toast from 'react-hot-toast'
 
 export default function ContactForm() {
   const { createMessage, loading } = useMessageStore()
@@ -12,18 +17,19 @@ export default function ContactForm() {
     subject: '',
     message: '',
   })
-  const [success, setSuccess] = useState(false)
-  const [error, setError] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setError('')
-    setSuccess(false)
+
+    const toastId = toast.loading('Sending your message...')
 
     try {
       const result = await createMessage(formData)
       if (result) {
-        setSuccess(true)
+        toast.success('Message sent successfully! We\'ll get back to you soon.', {
+          id: toastId,
+          duration: 5000,
+        })
         setFormData({
           name: '',
           email: '',
@@ -32,10 +38,14 @@ export default function ContactForm() {
           message: '',
         })
       } else {
-        setError('Failed to send message. Please try again.')
+        toast.error('Failed to send message. Please try again.', {
+          id: toastId,
+        })
       }
     } catch (err) {
-      setError('An error occurred. Please try again.')
+      toast.error('An error occurred. Please try again.', {
+        id: toastId,
+      })
     }
   }
 
@@ -53,84 +63,62 @@ export default function ContactForm() {
 
         <div className="mx-auto max-w-3xl">
           <form onSubmit={handleSubmit} className="space-y-6">
-            {success && (
-              <div className="rounded-lg bg-green-50 p-4 text-green-800 dark:bg-green-900/20 dark:text-green-200">
-                Thank you for your message! We'll get back to you soon.
-              </div>
-            )}
-
-            {error && (
-              <div className="rounded-lg bg-red-50 p-4 text-red-800 dark:bg-red-900/20 dark:text-red-200">
-                {error}
-              </div>
-            )}
-
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              <div>
-                <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-                  Name *
-                </label>
-                <input
+              <div className="space-y-2">
+                <Label htmlFor="contact-name">Name *</Label>
+                <Input
+                  id="contact-name"
                   type="text"
                   required
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full rounded-lg border bg-white px-4 py-2 dark:border-gray-700 dark:bg-gray-900"
                   placeholder="Your name"
                 />
               </div>
 
-              <div>
-                <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-                  Email *
-                </label>
-                <input
+              <div className="space-y-2">
+                <Label htmlFor="contact-email">Email *</Label>
+                <Input
+                  id="contact-email"
                   type="email"
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full rounded-lg border bg-white px-4 py-2 dark:border-gray-700 dark:bg-gray-900"
                   placeholder="your@email.com"
                 />
               </div>
 
-              <div>
-                <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-                  Phone
-                </label>
-                <input
+              <div className="space-y-2">
+                <Label htmlFor="contact-phone">Phone</Label>
+                <Input
+                  id="contact-phone"
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full rounded-lg border bg-white px-4 py-2 dark:border-gray-700 dark:bg-gray-900"
                   placeholder="+254 700 000000"
                 />
               </div>
 
-              <div>
-                <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-                  Subject
-                </label>
-                <input
+              <div className="space-y-2">
+                <Label htmlFor="contact-subject">Subject</Label>
+                <Input
+                  id="contact-subject"
                   type="text"
                   value={formData.subject}
                   onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                  className="w-full rounded-lg border bg-white px-4 py-2 dark:border-gray-700 dark:bg-gray-900"
                   placeholder="How can we help?"
                 />
               </div>
             </div>
 
-            <div>
-              <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-                Message *
-              </label>
-              <textarea
+            <div className="space-y-2">
+              <Label htmlFor="contact-message">Message *</Label>
+              <Textarea
+                id="contact-message"
                 rows={6}
                 required
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="w-full rounded-lg border bg-white px-4 py-2 dark:border-gray-700 dark:bg-gray-900"
                 placeholder="Tell us more about your inquiry..."
               />
             </div>
@@ -138,8 +126,9 @@ export default function ContactForm() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-lg bg-primary px-4 py-3 font-medium text-white hover:bg-primary/90 disabled:opacity-50"
+              className="w-full rounded-lg bg-primary px-4 py-3 font-medium text-white hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
+              {loading && <LoadingSpinner size="sm" />}
               {loading ? 'Sending...' : 'Send Message'}
             </button>
           </form>
